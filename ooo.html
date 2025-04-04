@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exinet Media - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        :root {
+            --primary: #00D4FF;
+            --secondary: #FF6F61;
+            --accent: #4CAF50;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-dark: #0A1A2F;
+        }
+
+        body {
+            color: var(--text-light);
+            line-height: 1.6;
+            background: whitesmoke;
+            background-size: cover;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 26, 47, 0.85);
+            z-index: -1;
+            animation: backgroundPulse 10s infinite ease-in-out;
+        }
+
+        @keyframes backgroundPulse {
+            0% { opacity: 0.85; }
+            50% { opacity: 0.95; }
+            100% { opacity: 0.85; }
+        }
+
+        /* Tech Background with Moving Objects */
+        .tech-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .tech-object {
+            position: absolute;
+            background: rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .tech-object:nth-child(1) {
+            width: 20px;
+            height: 20px;
+            top: 10%;
+            left: 15%;
+            animation-duration: 12s;
+        }
+
+        .tech-object:nth-child(2) {
+            width: 30px;
+            height: 30px;
+            top: 30%;
+            left: 70%;
+            animation-duration: 18s;
+        }
+
+        .tech-object:nth-child(3) {
+            width: 15px;
+            height: 15px;
+            top: 60%;
+            left: 40%;
+            animation-duration: 10s;
+        }
+
+        .tech-object:nth-child(4) {
+            width: 25px;
+            height: 25px;
+            top: 80%;
+            left: 20%;
+            animation-duration: 14s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); opacity: 0.5; }
+            50% { transform: translate(50px, 50px); opacity: 0.8; }
+            100% { transform: translate(0, 0); opacity: 0.5; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .cta-btn {
+            background: var(--secondary);
+            color: var(--text-light);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            background: #e64a19;
+        }
+
+        /* Hero with Slideshow */
+        .hero {
+            min-height: 60vh; /* Reduced height */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Replace these background-image paths with your local images */
+        .slide-1 {
+            background-image: url('d.webp'); /* Replace with your local image path */
+        }
+
+        .slide-2 {
+            background-image: url('w.jpg'); /* Replace with your local image path */
+        }
+
+        .slide-3 {
+            background-image: url('sr.jpg'); /* Replace with your local image path */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hero-content p {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+        }
+
+        .hero-content .cta-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+        }
+
+        .slide.active .hero-content h1,
+        .slide.active .hero-content p,
+        .slide.active .hero-content .cta-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sections */
+        .section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .service-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* Flyer & Printing */
+        .flyer-section, .printing-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 15px;
+            margin: 4rem auto;
+            max-width: 1400px;
+            transition: transform 0.3s ease;
+        }
+
+        .flyer-section:hover, .printing-section:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            grid-auto-rows: 200px;
+            grid-auto-flow: dense;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-item h3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--text-light);
+            padding: 1rem;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        /* CCTV */
+        .cctv-section {
+            background: rgba(255, 255, 255, 0.95);
+            text-align: center;
+        }
+
+        /* Clients */
+        .clients-section {
+            text-align: center;
+        }
+
+        .clients-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .client-logo {
+            width: 150px;
+            height: 100px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .client-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Blog */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 26, 47, 0.95);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .services-grid, .portfolio-grid, .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 26, 47, 0.95);
+                flex-direction: column;
+                padding: 4rem 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            nav ul.active {
+                display: flex;
+                transform: translateX(0);
+            }
+
+            .hero {
+                min-height: 50vh;
+                padding: 2rem;
+            }
+
+            .section, .flyer-section, .printing-section {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cta-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tech Background with Moving Objects -->
+    <div class="tech-background">
+        <div class="tech-object"></div>
+        <div class="tech-object"></div>
+        <div class="tech-object"></div>
+        <div class="tech-object"></div>
+    </div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">KERITON TECH UG</div>
+            <button class="nav-toggle"><i class="fas fa-bars"></i></button>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+            <a href="#quote" class="cta-btn">Get a Quote</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="slideshow">
+            <div class="slide slide-1">
+                <div class="hero-content">
+                    <h1>Innovate Your Future</h1>
+                    <p>Discover cutting-edge solutions to transform your business.</p>
+                    <a href="#discount" class="cta-btn">Claim Your Discount</a>
+                </div>
+            </div>
+            <div class="slide slide-2">
+                <div class="hero-content">
+                    <h1>Elevate Your Brand</h1>
+                    <p>Stand out with our expert digital marketing strategies.</p>
+                    <a href="#discount" class="cta-btn">Claim Your Discount</a>
+                </div>
+            </div>
+            <div class="slide slide-3">
+                <div class="hero-content">
+                    <h1>Secure Your Success</h1>
+                    <p>Protect your business with our advanced CCTV solutions.</p>
+                    <a href="#discount" class="cta-btn">Claim Your Discount</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="intro">
+        <h2 class="section-title">Looking for Professional Website Developers?</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto; color: var(--text-dark);">At Exinet Media, we specialize in crafting custom websites tailored to your unique business needs. From stunning informative sites to robust e-commerce platforms and dynamic web applications, we’ve got you covered. Let’s take your brand digital and make it unforgettable!</p>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="#services" class="cta-btn">Let’s Go Digital</a>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <h2 class="section-title">What We Do</h2>
+        <p class="section-subtitle">Explore our comprehensive digital solutions designed to elevate your business.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>We deliver top-tier web development services using the latest technologies like React, Node.js, and WordPress.</p>
+                <a href="#webdev">Learn More</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Graphics Design</h3>
+                <p>Communicate your brand’s story with stunning typography, vibrant colors, and creative illustrations.</p>
+                <a href="#portfolio">See Examples</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-search"></i>
+                <h3>SEO</h3>
+                <p>Outrank your competitors with our expert SEO strategies to boost visibility and drive traffic.</p>
+                <a href="#contact">Boost Rankings</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-megaphone"></i>
+                <h3>Digital Marketing</h3>
+                <p>Maximize your online presence with tailored digital marketing solutions. Free consultation included!</p>
+                <a href="#quote">Get a Free Quote</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile App Development</h3>
+                <p>Bring your ideas to life with custom mobile apps for iOS and Android, seamless across all devices.</p>
+                <a href="#contact">Start Your App</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-video"></i>
+                <h3>CCTV Installation</h3>
+                <p>Secure your premises with our professional CCTV installation and maintenance services.</p>
+                <a href="#cctv">Secure Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="flyer-section">
+        <h2 class="section-title">Elevate Your Brand!</h2>
+        <p>Capture your audience’s attention with engaging and eye-catching social media flyer designs tailored to your brand.</p>
+        <img src="flyer-placeholder.jpg" alt="Flyer Example">
+        <a href="#order" class="cta-btn">Order a Flyer</a>
+    </section>
+
+    <section class="printing-section">
+        <h2 class="section-title">Choose Us for Digital Printing & Design</h2>
+        <p>We provide high-quality, personalized digital prints to make your brand stand out. Our offerings include:</p>
+        <ul>
+            <li><i class="fas fa-address-card"></i> Business Cards - Professional designs that impress.</li>
+            <li><i class="fas fa-file-alt"></i> Flyers - Perfect for promotions and events.</li>
+            <li><i class="fas fa-image"></i> Posters - Bold and vibrant for maximum impact.</li>
+            <li><i class="fas fa-star"></i> Stickers - Custom shapes and sizes for any purpose.</li>
+            <li><i class="fas fa-book"></i> Brochures - Informative and stylish marketing tools.</li>
+            <li><i class="fas fa-ticket-alt"></i> Tickets & Envelopes - Tailored for events and correspondence.</li>
+        </ul>
+        <a href="#quote" class="cta-btn">Request a Quote</a>
+    </section>
+
+    <section class="section" id="portfolio">
+        <h2 class="section-title">Our Innovative Designs</h2>
+        <p class="section-subtitle">We craft eye-catching graphic designs that make your brand shine.</p>
+        <div class="portfolio-grid">
+            <div class="portfolio-item"><img src="logo-placeholder.jpg" alt="Logo"><h3>Logo Design</h3></div>
+            <div class="portfolio-item"><img src="flyer-placeholder.jpg" alt="Flyer"><h3>Flyers Design & Print</h3></div>
+            <div class="portfolio-item"><img src="shirt-placeholder.jpg" alt="Shirt"><h3>Shirt Branding</h3></div>
+            <div class="portfolio-item"><img src="cert-placeholder.jpg" alt="Certificate"><h3>Certificate Design</h3></div>
+            <div class="portfolio-item"><img src="sign-placeholder.jpg" alt="Sign"><h3>Sign Post</h3></div>
+            <div class="portfolio-item"><img src="banner-placeholder.jpg" alt="Banner"><h3>Banner Design</h3></div>
+        </div>
+    </section>
+
+    <section class="cctv-section section">
+        <h2 class="section-title">Professional CCTV Installation</h2>
+        <p>Ensure your safety with Exinet Media’s reliable CCTV camera installation. Tailored security solutions for peace of mind.</p>
+        <img src="cctv-placeholder.jpg" alt="CCTV">
+        <a href="#security" class="cta-btn">Get a Free Security Assessment</a>
+    </section>
+
+    <section class="clients-section section">
+        <h2 class="section-title">Our Satisfied Clients</h2>
+        <p>We proudly partner with a diverse range of clients, delivering exceptional IT services.</p>
+        <div class="clients-carousel">
+            <div class="client-logo">TechCorp</div>
+            <div class="client-logo">ShopEasy</div>
+            <div class="client-logo">SecureNow</div>
+        </div>
+    </section>
+
+    <section class="section" id="blog">
+        <h2 class="section-title">Blog</h2>
+        <p class="section-subtitle">Stay informed with the latest insights from Exinet Media.</p>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <h3>How AI is Revolutionizing Digital Marketing</h3>
+                <p>From chatbots to predictive analytics, AI is reshaping marketing. Discover how we harness these tools.</p>
+                <a href="#blog1">Read More</a>
+            </div>
+            <div class="blog-card">
+                <h3>The Benefits of Cloud Computing</h3>
+                <p>Cloud computing offers scalable solutions for small businesses. Learn how we leverage it.</p>
+                <a href="#blog2">Read More</a>
+            </div>
+            <div class="blog-card">
+                <h3>The Future of E-Commerce</h3>
+                <p>Explore trends and innovations in online shopping with Exinet Media’s cutting-edge solutions.</p>
+                <a href="#blog3">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Exinet Media</h3>
+                <p>Crafting digital excellence since 2020.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#home">Home</a> | <a href="#services">Services</a> | <a href="#portfolio">Portfolio</a> | <a href="#blog">Blog</a> | <a href="#contact">Contact Us</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="/cdn-cgi/l/email-protection">[email protected]</a><br>Phone: +1-800-555-1234<br>Address: 123 Digital Lane, Tech City</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector("nav ul");
+
+            navToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+
+            // Slideshow functionality
+            const slides = document.querySelectorAll(".slide");
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove("active");
+                    if (i === index) {
+                        slide.classList.add("active");
+                    }
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Initial slide
+            showSlide(currentSlide);
+
+            // Auto transition every 5 seconds
+            setInterval(nextSlide, 5000);
+        });
+    </script>
+</body>
+</html>
